@@ -52,7 +52,7 @@ interface NewAuthorForm {
 export class NewAuthorComponent implements OnInit, OnDestroy {
   isLoading = false;
 
-  private newAuthorSub: Subscription | null = null;
+  private loadingSub: Subscription | null = null;
   private messageSub: Subscription | null = null;
 
   private messageService = inject(MessageService);
@@ -82,7 +82,7 @@ export class NewAuthorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.newAuthorSub = this.authorsService.isLoading.subscribe(
+    this.loadingSub = this.authorsService.isLoading.subscribe(
       (isLoading) => (this.isLoading = isLoading)
     );
     this.messageSub = this.authorsService.message.subscribe((message) => {
@@ -102,7 +102,7 @@ export class NewAuthorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.authorsService.resetError();
 
-    this.newAuthorSub?.unsubscribe();
+    this.loadingSub?.unsubscribe();
     this.messageSub?.unsubscribe();
   }
 }

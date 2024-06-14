@@ -1,4 +1,4 @@
-<main class="min-h-screen w-full flex flex-col gap-4 justify-center items-center py-8">
+<div class="min-h-screen w-full flex flex-col gap-4 justify-center items-center py-8">
     <p-card class="w-full max-w-md" header="New Admin">
         <form [formGroup]="newAdminForm" (ngSubmit)="onSubmit()" class="w-full">
             <div class="space-y-2.5">
@@ -148,4 +148,4 @@
         <p>Already have an account?</p>
         <p-button [style]="{padding: '0px'}" routerLink="/auth/sign-in" label="Sign in" [link]="true" />
     </div>
-</main>
+</div>

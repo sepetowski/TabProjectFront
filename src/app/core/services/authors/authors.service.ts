@@ -36,12 +36,24 @@ export class AuthorsService {
   public createNewAuthor(author: NewAuthor) {
     this._isLoading.next(true);
 
-    console.log(author);
-
     this._http
       .post<Author>('https://localhost:7101/api/authors', author)
       .subscribe({
         next: this.handleNewAuthorCreation.bind(this),
+        error: this.handleError.bind(this),
+      });
+  }
+
+  public getAllAuthors() {
+    this._isLoading.next(true);
+
+    this._http
+      .get<AuthorsList>('https://localhost:7101/api/authors')
+      .subscribe({
+        next: (authors) => {
+          this._isLoading.next(false);
+          this._authors.next(authors);
+        },
         error: this.handleError.bind(this),
       });
   }

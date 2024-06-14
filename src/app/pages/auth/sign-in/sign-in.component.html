@@ -1,4 +1,4 @@
-<main class="min-h-screen w-full flex flex-col gap-4 justify-center items-center py-8">
+<div class="min-h-screen w-full flex flex-col gap-4 justify-center items-center py-8">
     <p-card class="w-full max-w-md" header="Sign in">
         <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="w-full">
             <div class="space-y-2.5">
@@ -66,4 +66,4 @@
         <p>Don't have an account?</p>
         <p-button [style]="{padding: '0px'}" routerLink="/auth/sign-up" label="Sign up" [link]="true" />
     </div>
-</main>
+</div>

@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from './core/services/auth/auth.service';
+import { NavComponent } from './layouts/nav/nav.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastModule],
+  imports: [RouterOutlet, ToastModule, NavComponent],
   providers: [MessageService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

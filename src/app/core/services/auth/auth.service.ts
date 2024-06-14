@@ -87,7 +87,7 @@ export class AuthService {
       this._user.next(user);
       this.startTokenExpirationCountdown(expirationDuration);
 
-      if (user.role === UserRole.admin) this._router.navigate(['/admin']);
+      // if (user.role === UserRole.admin) this._router.navigate(['/admin']);
     } else {
       if (refreshTokenExpired) {
         this.logOut();
@@ -96,7 +96,7 @@ export class AuthService {
       this._user.next(user);
       this.refreshToken();
 
-      if (user.role === UserRole.admin) this._router.navigate(['/admin']);
+      // if (user.role === UserRole.admin) this._router.navigate(['/admin']);
     }
   }
 

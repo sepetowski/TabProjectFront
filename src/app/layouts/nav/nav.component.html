@@ -1,4 +1,4 @@
-<nav class="fixed top-0 left-0 w-full p-6 backdrop-blur-xl bg-/30">
+<nav class="fixed top-0 left-0 w-full p-6 backdrop-blur-xl bg-/30 z-50">
     <div class="w-full mx-auto max-w-screen-2xl flex justify-between items-center gap-6">
         <a routerLink="/">
             <h2 class="text-teal-400 text-2xl font-bold">
@@ -38,11 +38,13 @@
                             </a>
                         </li>
                         }
+                        @if (user) {
                         <li class="w-full">
                             <p-button (onClick)="handleLogOut()" [style]="{'text-align': 'left'}" styleClass="w-full"
                                 label="Log out" [text]="true" [raised]="true" severity="danger" icon="pi pi-sign-out" />
 
                         </li>
+                        }
                     </ul>
                 </p-scrollPanel>
             </div>

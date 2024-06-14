@@ -1,0 +1,18 @@
+<div class="mt-24 sm:mt-36">
+    <div class=" gap-2">
+        <p-iconField iconPosition="left">
+            <p-inputIcon styleClass="pi pi-search" />
+            <input type="text" pInputText placeholder="Search" class="w-full md:w-[30rem]" [(ngModel)]="serachValue"
+                (ngModelChange)="filterAuthors()" />
+        </p-iconField>
+        <p class="text-sm text-neutral-400 mt-1">
+            Serach by author name and surname
+        </p>
+    </div>
+
+    <div class="my-6  grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (author of filteredAuthors; track author.id) {
+        <app-author [author]="author" />
+        }
+    </div>
+</div>

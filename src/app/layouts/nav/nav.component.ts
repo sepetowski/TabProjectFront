@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../../../core/services/auth/auth.service';
+import { AuthService } from '../../core/services/auth/auth.service';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
@@ -8,11 +8,17 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { BadgeModule } from 'primeng/badge';
 import { Subscription } from 'rxjs';
-import { User } from '../../../models/user.model';
-import { NAV_ITEMS, NavItem } from './nav.constants';
+import { User } from '../../models/user.model';
+import {
+  ADMIN_NAV_ITEMS,
+  NavItem,
+  NOT_SIGN_NAV_ITEMS,
+  USER_NAV_ITEMS,
+} from './nav.constants';
+import { UserRole } from '../../interfaces/auth.interfaces';
 
 @Component({
-  selector: 'app-admin-nav',
+  selector: 'app-nav',
   standalone: true,
   imports: [
     SidebarModule,
@@ -24,22 +30,30 @@ import { NAV_ITEMS, NavItem } from './nav.constants';
     BadgeModule,
     RouterLinkActive,
   ],
-  templateUrl: './admin-nav.component.html',
-  styleUrl: './admin-nav.component.css',
+  templateUrl: './nav.component.html',
+  styleUrl: './nav.component.css',
 })
-export class AdminNavComponent implements OnInit, OnDestroy {
+export class NavComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);
 
   private userSub: Subscription | null = null;
   user: User | null = null;
 
   sidebarVisible: boolean = false;
-  navItems: NavItem[] = NAV_ITEMS;
+  navItems: NavItem[] = [];
 
   ngOnInit() {
-    this.userSub = this.authService.user.subscribe(
-      (user) => (this.user = user)
-    );
+    this.userSub = this.authService.user.subscribe((user) => {
+      this.user = user;
+      if (user) {
+        const role = user.role;
+        role === UserRole.admin
+          ? (this.navItems = ADMIN_NAV_ITEMS)
+          : (this.navItems = USER_NAV_ITEMS);
+      } else {
+        this.navItems = NOT_SIGN_NAV_ITEMS;
+      }
+    });
   }
 
   toggleSidebar() {
