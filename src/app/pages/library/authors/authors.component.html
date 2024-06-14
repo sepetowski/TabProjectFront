@@ -3,7 +3,7 @@
     <div class="w-full flex justify-center items-center mt-52">
         <p-progressSpinner ariaLabel="loading" />
     </div>
-    }@else {
+    }@else if(!isLoading && authors && authors.amount!==0) {
     <div class=" gap-2">
         <p-iconField iconPosition="left">
             <p-inputIcon styleClass="pi pi-search" />
@@ -19,6 +19,17 @@
         @for (author of filteredAuthors; track author.id) {
         <app-author [author]="author" />
         }
+    </div>
+
+    @if ( authors.amount !==0 && filteredAuthors?.length===0 ) {
+    <div class="w-full flex justify-center items-center mt-52">
+        <p>Nothing found for <span class="font-bold">"{{serachValue}}"</span></p>
+    </div>
+    }
+    }
+    @else {
+    <div class="w-full flex justify-center items-center mt-52">
+        <p>No authors found</p>
     </div>
     }
 </div>
