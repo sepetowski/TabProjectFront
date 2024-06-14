@@ -7,6 +7,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-authors',
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     InputIconModule,
     InputTextModule,
     FormsModule,
+    ProgressSpinnerModule,
   ],
   templateUrl: './authors.component.html',
   styleUrl: './authors.component.css',

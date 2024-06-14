@@ -1,4 +1,9 @@
 <div class="mt-24 sm:mt-36">
+    @if (isLoading) {
+    <div class="w-full flex justify-center items-center mt-52">
+        <p-progressSpinner ariaLabel="loading" />
+    </div>
+    }@else {
     <div class=" gap-2">
         <p-iconField iconPosition="left">
             <p-inputIcon styleClass="pi pi-search" />
@@ -15,4 +20,5 @@
         <app-author [author]="author" />
         }
     </div>
+    }
 </div>
