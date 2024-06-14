@@ -10,6 +10,7 @@ import {
   RefreshTokenReq,
   RefreshTokenRes,
   Message,
+  UserRole,
 } from '../../../interfaces/auth.interfaces';
 import { User } from '../../../models/user.model';
 
@@ -53,7 +54,6 @@ export class AuthService {
 
   public signIn(userData: UserLoginData) {
     this._isLoading.next(true);
-    console.log(userData);
     this._http
       .post<UserLoginResponseData>(
         'https://localhost:7101/api/auth/login',
@@ -86,15 +86,17 @@ export class AuthService {
     if (expirationDuration > 0) {
       this._user.next(user);
       this.startTokenExpirationCountdown(expirationDuration);
+
+      if (user.role === UserRole.admin) this._router.navigate(['/admin']);
     } else {
       if (refreshTokenExpired) {
         this.logOut();
         return;
       }
-
-      console.log(user);
       this._user.next(user);
       this.refreshToken();
+
+      if (user.role === UserRole.admin) this._router.navigate(['/admin']);
     }
   }
 
@@ -148,7 +150,8 @@ export class AuthService {
       this.startTokenExpirationCountdown(expirationDuration);
       localStorage.setItem('user', JSON.stringify(user));
 
-      this._router.navigate(['/']);
+      if (user.role === UserRole.admin) this._router.navigate(['/admin']);
+      else this._router.navigate(['/']);
     }
   }
 
