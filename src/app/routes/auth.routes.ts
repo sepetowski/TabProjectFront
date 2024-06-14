@@ -20,4 +20,11 @@ export const authRoutes: Routes = [
         (mod) => mod.SignUpComponent
       ),
   },
+  {
+    path: 'new-admin',
+    loadComponent: () =>
+      import('../pages/auth/new-admin/new-admin.component').then(
+        (mod) => mod.NewAdminComponent
+      ),
+  },
 ];

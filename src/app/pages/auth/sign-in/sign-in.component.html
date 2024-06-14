@@ -1,1 +1,69 @@
-<p>sign-in works!</p>
+<main class="min-h-screen w-full flex flex-col gap-4 justify-center items-center py-8">
+    <p-card class="w-full max-w-md" header="Sign in">
+        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="w-full">
+            <div class="space-y-2.5">
+
+                <div class="flex flex-col gap-1 ">
+                    <label for="username">Username</label>
+
+
+                    <input placeholder="Username"
+                        [ngClass]="!signInForm.controls.username.valid && signInForm.controls.username.touched?'ng-invalid ng-dirty':''"
+                        id="username" class="w-full" type="text" pInputText formControlName="username" />
+
+                    @if(!signInForm.controls.username.valid && signInForm.controls.username.touched){
+                    <div>
+
+
+                        @if (signInForm.controls.username.getError("required")) {
+                        <app-input-error-message message="Username is required" />
+                        }
+                        @if (signInForm.controls.username.getError("minlength")) {
+                        <app-input-error-message message="Username is too short" />
+                        }
+                        @if (signInForm.controls.username.getError("maxlengt")) {
+                        <app-input-error-message message="Username is too long" />
+                        }
+                    </div>
+                    }
+                </div>
+
+
+                <div class="flex flex-col gap-1 w-full">
+                    <label for="password">Password</label>
+                    <p-password placeholder="password"
+                        [ngClass]="!signInForm.controls.password.valid && signInForm.controls.password.touched?'ng-invalid ng-dirty':''"
+                        id="password" formControlName="password" inputStyleClass="w-full"
+                        styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right" [feedback]="false"
+                        [toggleMask]="true" />
+
+
+                    @if(!signInForm.controls.password.valid && signInForm.controls.password.touched){
+                    <div>
+                        @if (signInForm.controls.password.getError("required")) {
+                        <app-input-error-message message="Password is required" />
+                        }
+                        @if (signInForm.controls.password.getError("notValidPassword")) {
+                        <app-input-error-message
+                            message="Password must have at least 8 characters, at least one lowercase letter, at least one uppercase letter and at least one numeric " />
+                        }
+
+                    </div>
+                    }
+                </div>
+
+
+            </div>
+            <div class="mt-6">
+                <p-button iconPos="right" [loading]="isLoading" [disabled]="!signInForm.valid" type="submit"
+                    [label]=" isLoading? 'Logging. Plase wait':'Sign in'" class="w-full" styleClass="w-full" />
+            </div>
+
+        </form>
+
+    </p-card>
+    <div class="flex gap-1 justify-center items-center">
+        <p>Don't have an account?</p>
+        <p-button [style]="{padding: '0px'}" routerLink="/auth/sign-up" label="Sign up" [link]="true" />
+    </div>
+</main>

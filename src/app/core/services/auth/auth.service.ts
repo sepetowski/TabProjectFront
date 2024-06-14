@@ -74,10 +74,12 @@ export class AuthService {
     //TODO check if user has valid type
 
     const expirationDuration =
-      user.tokenExpirationDate!.getTime() - new Date().getTime();
+      new Date(user.tokenExpirationDate!).getTime() - new Date().getTime();
 
     const refreshTokenExpired =
-      user.refreshTokenExpirationDate.getTime() - new Date().getTime() > 0
+      new Date(user.refreshTokenExpirationDate).getTime() -
+        new Date().getTime() >
+      0
         ? false
         : true;
 
@@ -90,6 +92,7 @@ export class AuthService {
         return;
       }
 
+      console.log(user);
       this._user.next(user);
       this.refreshToken();
     }

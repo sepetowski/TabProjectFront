@@ -1,1 +1,130 @@
-<p>sign-up works!</p>
+<main class="min-h-screen w-full flex flex-col gap-4 justify-center items-center py-8">
+    <p-card class="w-full max-w-md" header="Sign up for free">
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="w-full">
+            <div class="space-y-2.5">
+
+                <div class="flex flex-col gap-1 ">
+                    <label for="username">Username</label>
+                    <p-iconField iconPosition="right">
+                        @if (signUpForm.pending) {
+                        <p-inputIcon styleClass="pi pi-spinner pi-spin" />
+                        }
+                        <input placeholder="Username"
+                            [ngClass]="!signUpForm.controls.username.valid && signUpForm.controls.username.touched?'ng-invalid ng-dirty':''"
+                            id="username" class="w-full" type="text" pInputText formControlName="username" />
+                    </p-iconField>
+                    @if(!signUpForm.controls.username.valid && signUpForm.controls.username.touched){
+                    <div>
+                        @if (signUpForm.controls.username.getError("required")) {
+                        <app-input-error-message message="Username is required" />
+                        }
+                        @if (signUpForm.controls.username.getError("minlength")) {
+                        <app-input-error-message message="Username is too short" />
+                        }
+                        @if (signUpForm.controls.username.getError("maxlengt")) {
+                        <app-input-error-message message="Username is too long" />
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label for="email">Email</label>
+
+
+                    <input placeholder="Email"
+                        [ngClass]="!signUpForm.controls.email.valid && signUpForm.controls.email.touched?'ng-invalid ng-dirty':''"
+                        id="email" class="w-full" type="text" pInputText formControlName="email" />
+
+
+                    @if(!signUpForm.controls.email.valid && signUpForm.controls.email.touched){
+                    <div>
+                        @if (signUpForm.controls.email.getError("required")) {
+                        <app-input-error-message message="Email is required" />
+                        }
+                        @if (signUpForm.controls.email.getError("email")) {
+                        <app-input-error-message message="Plase provide a valid email" />
+                        }
+
+                    </div>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1 w-full">
+                    <label for="password">Password</label>
+                    <p-password placeholder="Password"
+                        [ngClass]="!signUpForm.controls.password.valid && signUpForm.controls.password.touched?'ng-invalid ng-dirty':''"
+                        id="password" formControlName="password" class="w-full" inputStyleClass="w-full"
+                        styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right"
+                        [toggleMask]="true">
+                        <ng-template pTemplate="header">
+                            <h6>Pick a password</h6>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <p-divider />
+                            <p class="mt-2">Your password must have</p>
+                            <ul class="pl-2 ml-2 mt-0 list-disc">
+                                <li>At least one lowercase</li>
+                                <li>At least one uppercase</li>
+                                <li>At least one numeric</li>
+                                <li>Minimum 8 characters</li>
+                            </ul>
+                        </ng-template>
+                    </p-password>
+                    @if(!signUpForm.controls.password.valid && signUpForm.controls.password.touched){
+                    <div>
+                        @if (signUpForm.controls.password.getError("required")) {
+                        <app-input-error-message message="Password is required" />
+                        }
+                        @if (signUpForm.controls.password.getError("notValidPassword")) {
+                        <app-input-error-message message="Plase provide a stronger password" />
+                        }
+
+                    </div>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1 w-full">
+                    <label for="confirm-password">Confirm Password</label>
+                    <p-password placeholder="Confirm password" [ngClass]="{
+                        'ng-invalid ng-dirty': 
+                          (signUpForm.controls.confirmPassword.touched && !signUpForm.controls.confirmPassword.valid) || 
+                          (signUpForm.controls.confirmPassword.touched &&signUpForm.errors &&  signUpForm.errors['notMatched'])
+                      }" id="confirm-password" formControlName="confirmPassword" inputStyleClass="w-full"
+                        styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right" [feedback]="false"
+                        [toggleMask]="true" />
+
+                    @if ((signUpForm.controls.confirmPassword.touched && !signUpForm.controls.confirmPassword.valid) ||
+                    (signUpForm.controls.confirmPassword.touched &&signUpForm.errors &&
+                    signUpForm.errors['notMatched'])) {
+                    <div>
+                        @if (signUpForm.controls.confirmPassword.getError("required")) {
+                        <app-input-error-message message="Confirm password is required" />
+                        }@else {
+                        <app-input-error-message message="Passwords do not match" />
+                        }
+                    </div>
+                    }
+                </div>
+
+
+            </div>
+            <div class="mt-6">
+                <p-button iconPos="right" [loading]="isLoading" [disabled]="!signUpForm.valid" type="submit"
+                    [label]=" isLoading? 'Creating. Plase wait':'Create account'" class="w-full" styleClass="w-full" />
+            </div>
+
+        </form>
+        <ng-template pTemplate="footer">
+            <div class="flex  justify-center items-center">
+                <p class="text-xs text-gray-300">By signing up you agree to our <span class="font-semibold">Terms of
+                        Service.</span>
+                </p>
+            </div>
+        </ng-template>
+    </p-card>
+    <div class="flex gap-1 justify-center items-center">
+        <p>Already have an account?</p>
+        <p-button [style]="{padding: '0px'}" routerLink="/auth/sign-in" label="Sign in" [link]="true" />
+    </div>
+</main>
