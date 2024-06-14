@@ -1,27 +1,27 @@
 <main class="min-h-screen w-full flex flex-col gap-4 justify-center items-center py-8">
     <p-card class="w-full max-w-md" header="New Admin">
-        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="w-full">
+        <form [formGroup]="newAdminForm" (ngSubmit)="onSubmit()" class="w-full">
             <div class="space-y-2.5">
 
                 <div class="flex flex-col gap-1 ">
                     <label for="username">Username</label>
                     <p-iconField iconPosition="right">
-                        @if (signUpForm.pending) {
+                        @if (newAdminForm.pending) {
                         <p-inputIcon styleClass="pi pi-spinner pi-spin" />
                         }
                         <input placeholder="Username"
-                            [ngClass]="!signUpForm.controls.username.valid && signUpForm.controls.username.touched?'ng-invalid ng-dirty':''"
+                            [ngClass]="!newAdminForm.controls.username.valid && newAdminForm.controls.username.touched?'ng-invalid ng-dirty':''"
                             id="username" class="w-full" type="text" pInputText formControlName="username" />
                     </p-iconField>
-                    @if(!signUpForm.controls.username.valid && signUpForm.controls.username.touched){
+                    @if(!newAdminForm.controls.username.valid && newAdminForm.controls.username.touched){
                     <div>
-                        @if (signUpForm.controls.username.getError("required")) {
+                        @if (newAdminForm.controls.username.getError("required")) {
                         <app-input-error-message message="Username is required" />
                         }
-                        @if (signUpForm.controls.username.getError("minlength")) {
+                        @if (newAdminForm.controls.username.getError("minlength")) {
                         <app-input-error-message message="Username is too short" />
                         }
-                        @if (signUpForm.controls.username.getError("maxlengt")) {
+                        @if (newAdminForm.controls.username.getError("maxlengt")) {
                         <app-input-error-message message="Username is too long" />
                         }
                     </div>
@@ -33,16 +33,16 @@
 
 
                     <input placeholder="Email"
-                        [ngClass]="!signUpForm.controls.email.valid && signUpForm.controls.email.touched?'ng-invalid ng-dirty':''"
+                        [ngClass]="!newAdminForm.controls.email.valid && newAdminForm.controls.email.touched?'ng-invalid ng-dirty':''"
                         id="email" class="w-full" type="text" pInputText formControlName="email" />
 
 
-                    @if(!signUpForm.controls.email.valid && signUpForm.controls.email.touched){
+                    @if(!newAdminForm.controls.email.valid && newAdminForm.controls.email.touched){
                     <div>
-                        @if (signUpForm.controls.email.getError("required")) {
+                        @if (newAdminForm.controls.email.getError("required")) {
                         <app-input-error-message message="Email is required" />
                         }
-                        @if (signUpForm.controls.email.getError("email")) {
+                        @if (newAdminForm.controls.email.getError("email")) {
                         <app-input-error-message message="Plase provide a valid email" />
                         }
 
@@ -55,13 +55,13 @@
 
 
                     <input placeholder="Security Key"
-                        [ngClass]="!signUpForm.controls.adminRoleKey.valid && signUpForm.controls.adminRoleKey.touched?'ng-invalid ng-dirty':''"
+                        [ngClass]="!newAdminForm.controls.adminRoleKey.valid && newAdminForm.controls.adminRoleKey.touched?'ng-invalid ng-dirty':''"
                         id="key" class="w-full" type="text" pInputText formControlName="adminRoleKey" />
 
 
-                    @if(!signUpForm.controls.adminRoleKey.valid && signUpForm.controls.adminRoleKey.touched){
+                    @if(!newAdminForm.controls.adminRoleKey.valid && newAdminForm.controls.adminRoleKey.touched){
                     <div>
-                        @if (signUpForm.controls.adminRoleKey.getError("required")) {
+                        @if (newAdminForm.controls.adminRoleKey.getError("required")) {
                         <app-input-error-message message="Key is required" />
                         }
 
@@ -73,7 +73,7 @@
                 <div class="flex flex-col gap-1 w-full">
                     <label for="password">Password</label>
                     <p-password placeholder="Password"
-                        [ngClass]="!signUpForm.controls.password.valid && signUpForm.controls.password.touched?'ng-invalid ng-dirty':''"
+                        [ngClass]="!newAdminForm.controls.password.valid && newAdminForm.controls.password.touched?'ng-invalid ng-dirty':''"
                         id="password" formControlName="password" class="w-full" inputStyleClass="w-full"
                         styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right"
                         [toggleMask]="true">
@@ -91,12 +91,12 @@
                             </ul>
                         </ng-template>
                     </p-password>
-                    @if(!signUpForm.controls.password.valid && signUpForm.controls.password.touched){
+                    @if(!newAdminForm.controls.password.valid && newAdminForm.controls.password.touched){
                     <div>
-                        @if (signUpForm.controls.password.getError("required")) {
+                        @if (newAdminForm.controls.password.getError("required")) {
                         <app-input-error-message message="Password is required" />
                         }
-                        @if (signUpForm.controls.password.getError("notValidPassword")) {
+                        @if (newAdminForm.controls.password.getError("notValidPassword")) {
                         <app-input-error-message message="Plase provide a stronger password" />
                         }
 
@@ -108,17 +108,18 @@
                     <label for="confirm-password">Confirm Password</label>
                     <p-password placeholder="Confirm password" [ngClass]="{
                         'ng-invalid ng-dirty': 
-                          (signUpForm.controls.confirmPassword.touched && !signUpForm.controls.confirmPassword.valid) || 
-                          (signUpForm.controls.confirmPassword.touched &&signUpForm.errors &&  signUpForm.errors['notMatched'])
+                          (newAdminForm.controls.confirmPassword.touched && !newAdminForm.controls.confirmPassword.valid) || 
+                          (newAdminForm.controls.confirmPassword.touched &&newAdminForm.errors &&  newAdminForm.errors['notMatched'])
                       }" id="confirm-password" formControlName="confirmPassword" inputStyleClass="w-full"
                         styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right" [feedback]="false"
                         [toggleMask]="true" />
 
-                    @if ((signUpForm.controls.confirmPassword.touched && !signUpForm.controls.confirmPassword.valid) ||
-                    (signUpForm.controls.confirmPassword.touched &&signUpForm.errors &&
-                    signUpForm.errors['notMatched'])) {
+                    @if ((newAdminForm.controls.confirmPassword.touched && !newAdminForm.controls.confirmPassword.valid)
+                    ||
+                    (newAdminForm.controls.confirmPassword.touched &&newAdminForm.errors &&
+                    newAdminForm.errors['notMatched'])) {
                     <div>
-                        @if (signUpForm.controls.confirmPassword.getError("required")) {
+                        @if (newAdminForm.controls.confirmPassword.getError("required")) {
                         <app-input-error-message message="Confirm password is required" />
                         }@else {
                         <app-input-error-message message="Passwords do not match" />
@@ -130,7 +131,7 @@
 
             </div>
             <div class="mt-6">
-                <p-button iconPos="right" [loading]="isLoading" [disabled]="!signUpForm.valid" type="submit"
+                <p-button iconPos="right" [loading]="isLoading" [disabled]="!newAdminForm.valid" type="submit"
                     [label]=" isLoading? 'Creating. Plase wait':'Create account'" class="w-full" styleClass="w-full" />
             </div>
 

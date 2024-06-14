@@ -1,8 +1,4 @@
-import {
-  HttpErrorResponse,
-  HttpInterceptorFn,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { take, exhaustMap, catchError, throwError } from 'rxjs';
@@ -18,7 +14,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       if (!user) return next(req);
 
       const newReq = req.clone({
-        params: new HttpParams().set('Authorization', `Bearer ${user.token}`),
+        setHeaders: {
+          Authorization: `bearer ${user.token}`,
+        },
       });
 
       return next(newReq);
@@ -27,8 +25,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       console.log(err);
 
       if (err.status === 401) {
-        console.log('Unauthorized');
-        router.navigate(['/']);
+        authService.logOut();
       }
 
       return throwError(() => err);

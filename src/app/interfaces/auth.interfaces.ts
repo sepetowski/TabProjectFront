@@ -42,10 +42,6 @@ export interface RefreshTokenReq {
   refreshToken: string;
 }
 
-export interface Message {
-  type: 'error' | 'success';
-  message: string;
-}
 export enum UserRole {
   admin = 0,
   user = 1,

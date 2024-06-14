@@ -27,7 +27,7 @@ import { validateConfirmPassword } from '../../../validators/confirm-password.va
 import { UserRole } from '../../../interfaces/auth.interfaces';
 import { InputErrorMessageComponent } from '../../../components/input-error-message/input-error-message.component';
 
-interface SignUpForm {
+interface NewAdminForm {
   username: FormControl<string>;
   email: FormControl<string>;
   password: FormControl<string>;
@@ -63,7 +63,7 @@ export class NewAdminComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);
   private messageService = inject(MessageService);
 
-  signUpForm = new FormGroup<SignUpForm>(
+  newAdminForm = new FormGroup<NewAdminForm>(
     {
       username: new FormControl('', {
         validators: [
@@ -94,12 +94,12 @@ export class NewAdminComponent implements OnInit, OnDestroy {
   );
 
   onSubmit() {
-    if (!this.signUpForm.valid) return;
+    if (!this.newAdminForm.valid) return;
     this.authService.signUp({
-      ...this.signUpForm.getRawValue(),
+      ...this.newAdminForm.getRawValue(),
       role: UserRole.admin,
     });
-    this.signUpForm.reset();
+    this.newAdminForm.reset();
   }
 
   ngOnInit(): void {

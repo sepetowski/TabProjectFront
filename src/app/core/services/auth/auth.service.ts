@@ -9,10 +9,10 @@ import {
   UserLoginResponseData,
   RefreshTokenReq,
   RefreshTokenRes,
-  Message,
   UserRole,
 } from '../../../interfaces/auth.interfaces';
 import { User } from '../../../models/user.model';
+import { Message } from '../../../interfaces/message.interface';
 
 @Injectable({
   providedIn: 'root',

@@ -1,1 +1,66 @@
-<p>new-author works!</p>
+<div class="w-full mx-auto max-w-lg mt-48">
+    <p-card class="w-full" header="Add new author">
+        <form [formGroup]="newAuthorForm" (ngSubmit)="onSubmit()" class="w-full">
+            <div class="space-y-2.5">
+                <div class="flex flex-col gap-1 ">
+                    <label for="name">Name*</label>
+
+                    <input placeholder="Name"
+                        [ngClass]="!newAuthorForm.controls.name.valid && newAuthorForm.controls.name.touched?'ng-invalid ng-dirty':''"
+                        id="name" class="w-full" type="text" pInputText formControlName="name" />
+
+                    @if(!newAuthorForm.controls.name.valid && newAuthorForm.controls.name.touched){
+                    <div>
+                        @if (newAuthorForm.controls.name.getError("required")) {
+                        <app-input-error-message message="Name is required" />
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1 ">
+                    <label for="surname">Surname*</label>
+
+                    <input placeholder="Surname"
+                        [ngClass]="!newAuthorForm.controls.surname.valid && newAuthorForm.controls.surname.touched?'ng-invalid ng-dirty':''"
+                        id="surname" class="w-full" type="text" pInputText formControlName="surname" />
+
+                    @if(!newAuthorForm.controls.surname.valid && newAuthorForm.controls.surname.touched){
+                    <div>
+                        @if (newAuthorForm.controls.surname.getError("required")) {
+                        <app-input-error-message message="Surname is required" />
+                        }
+                    </div>
+                    }
+                </div>
+
+
+                <div class="flex flex-col gap-1 ">
+                    <label for="description">Description</label>
+
+                    <input placeholder="Description"
+                        [ngClass]="!newAuthorForm.controls.description.valid && newAuthorForm.controls.description.touched?'ng-invalid ng-dirty':''"
+                        id="description" class="w-full" type="text" pInputText formControlName="description" />
+
+                </div>
+
+                <div class="flex flex-col gap-1 ">
+                    <label for="date">Date of Birth</label>
+                    <p-calendar placeholder="Date of Birth" inputId="date" formControlName="dateOfBirth" class="w-full"
+                        [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" />
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <p-button iconPos="right" [loading]="isLoading" [disabled]="!newAuthorForm.valid" type="submit"
+                    [label]=" isLoading? 'Creating. Plase wait':'Add Author'" class="w-full" styleClass="w-full" />
+            </div>
+        </form>
+
+        <ng-template pTemplate="footer">
+            <div class="flex  justify-center items-center">
+                <p class="text-sm text-gray-300">* Fileds are required </p>
+            </div>
+        </ng-template>
+    </p-card>
+</div>

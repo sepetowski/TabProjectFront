@@ -1,0 +1,51 @@
+<nav class="fixed top-0 left-0 w-full p-6 backdrop-blur-xl bg-/30">
+    <div class="w-full mx-auto max-w-screen-2xl flex justify-between items-center gap-6">
+        <a routerLink="/">
+            <h2 class="text-teal-400 text-2xl font-bold">
+                Online Library
+            </h2>
+        </a>
+        <p-button icon="pi pi-bars" size="small" (click)="toggleSidebar()" />
+    </div>
+</nav>
+
+
+<p-sidebar transitionOptions="300ms cubic-bezier(0, 0, 0.2, 1)" [(visible)]="sidebarVisible" position="right">
+    <ng-template pTemplate="headless">
+        <div class="w-full flex flex-col h-full p-4 gap-4">
+            <div class="w-full flex items-center justify-between flex-shrink-0 font-bold">
+                <h2 class="text-teal-400 text-2xl">
+                    Online Library
+                </h2>
+                <span>
+                    <p-button type="button" (click)="toggleSidebar()" icon="pi pi-times" [rounded]="true"
+                        [text]="true"></p-button>
+                </span>
+            </div>
+            <div class="overflow-y-auto">
+                <p-scrollPanel [style]="{ width: '100%', height: '100%' }">
+                    <ul class="list-none p-0 m-0  space-y-1.5 overflow-hidden">
+                        @for (navItem of navItems; track $index) {
+                        <li>
+                            <a (click)="toggleSidebar()" [routerLink]="navItem.href"
+                                routerLinkActive="bg-surface/70 text-teal-400"
+                                [routerLinkActiveOptions]=" { exact: true }"
+                                class="flex items-center cursor-pointer p-3 rounded-md hover:bg-surface/50 transition-colors duration-300 justify-between ">
+                                <div>
+                                    <i [class]="navItem.icon" class="pi mr-2 text-teal-400"></i>
+                                    <span class="font-medium">{{navItem.name}}</span>
+                                </div>
+                            </a>
+                        </li>
+                        }
+                        <li class="w-full">
+                            <p-button (onClick)="handleLogOut()" [style]="{'text-align': 'left'}" styleClass="w-full"
+                                label="Log out" [text]="true" [raised]="true" severity="danger" icon="pi pi-sign-out" />
+
+                        </li>
+                    </ul>
+                </p-scrollPanel>
+            </div>
+        </div>
+    </ng-template>
+</p-sidebar>
