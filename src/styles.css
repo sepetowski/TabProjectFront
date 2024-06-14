@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+/* this way bcs tailwind restets primeng styles */
+@import "../node_modules/tailwindcss/base.css" layer(tailwindcss);
+@import "../node_modules/tailwindcss/components.css" layer(tailwindcss);
+@import "../node_modules/tailwindcss/utilities.css" layer(tailwindcss);
+
+.p-toast .p-toast-message .p-toast-message-content {
+  border-width: 0px;
+}
