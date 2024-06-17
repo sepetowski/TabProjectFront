@@ -13,4 +13,18 @@ export const adminRoutes: Routes = [
         (mod) => mod.NewAuthorComponent
       ),
   },
+  {
+    path: 'new-book',
+    loadComponent: () =>
+      import('../pages/admin/new-book/new-book.component').then(
+        (mod) => mod.NewBookComponent
+      ),
+  },
+  {
+    path: 'new-category',
+    loadComponent: () =>
+      import('../pages/admin/new-category/new-category.component').then(
+        (mod) => mod.NewCategoryComponent
+      ),
+  },
 ];

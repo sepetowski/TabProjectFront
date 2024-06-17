@@ -1,0 +1,35 @@
+<div class="mt-24 sm:mt-36">
+    @if(isLoading){
+    <div class="w-full flex justify-center items-center mt-52">
+        <p-progressSpinner ariaLabel="loading" />
+    </div>
+    }@else if (author) {
+    <div>
+        <h1 class="font-bold text-3xl">{{author.name}} {{author.surname}}</h1>
+        <div class="mt-2 flex flex-col">
+            <p>Description:</p>
+            @if(author.description){
+            <p>{{author.description}}</p>
+            }@else {
+            <p>Not provided</p>
+            }
+        </div>
+        <div class="mt-2 flex flex-col">
+            <p>Date of birth:</p>
+            @if(author.dateOfBirth){
+            <p>{{author.dateOfBirth |date}}</p>
+            }@else {
+            <p>Not provided</p>
+            }
+        </div>
+    </div>
+    <div class="mt-6">
+        <h2 class="font-bold text-2xl">Author's books:</h2>
+    </div>
+    }
+    @else {
+    <div class="w-full flex justify-center items-center mt-52">
+        <p>Author not found</p>
+    </div>
+    }
+</div>

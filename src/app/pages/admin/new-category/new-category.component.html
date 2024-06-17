@@ -1,0 +1,28 @@
+<div class="w-full mx-auto max-w-lg min-h-screen  flex  justify-center items-center">
+    <p-card class="w-full" header="Add new category">
+        <form [formGroup]="newCategoryForm" (ngSubmit)="onSubmit()" class="w-full">
+            <div class="space-y-2.5">
+                <div class="flex flex-col gap-1 ">
+                    <label for="name">Name</label>
+
+                    <input placeholder="Name"
+                        [ngClass]="!newCategoryForm.controls.name.valid && newCategoryForm.controls.name.touched?'ng-invalid ng-dirty':''"
+                        id="name" class="w-full" type="text" pInputText formControlName="name" />
+
+                    @if(!newCategoryForm.controls.name.valid && newCategoryForm.controls.name.touched){
+                    <div>
+                        @if (newCategoryForm.controls.name.getError("required")) {
+                        <app-input-error-message message="Name is required" />
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <p-button iconPos="right" [loading]="isLoading" [disabled]="!newCategoryForm.valid" type="submit"
+                    [label]=" isLoading? 'Creating. Plase wait':'Add Category'" class="w-full" styleClass="w-full" />
+            </div>
+        </form>
+    </p-card>
+</div>

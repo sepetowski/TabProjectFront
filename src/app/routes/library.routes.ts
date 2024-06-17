@@ -16,4 +16,11 @@ export const libraryRoutes: Routes = [
         (mod) => mod.AuthorsComponent
       ),
   },
+  {
+    path: 'authors/author/:id',
+    loadComponent: () =>
+      import(
+        '../pages/library/authors/author-details/author-details.component'
+      ).then((mod) => mod.AuthorDetailsComponent),
+  },
 ];

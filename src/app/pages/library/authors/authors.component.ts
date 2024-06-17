@@ -30,8 +30,8 @@ export class AuthorsComponent implements OnInit, OnDestroy {
 
   serachValue: string = '';
 
-  private authorsSub: Subscription | null = null;
-  private loadingSub: Subscription | null = null;
+  private _authorsSub: Subscription | null = null;
+  private _loadingSub: Subscription | null = null;
 
   private _authorsService = inject(AuthorsService);
 
@@ -49,7 +49,7 @@ export class AuthorsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.authorsSub = this._authorsService.authors.subscribe((authors) => {
+    this._authorsSub = this._authorsService.authors.subscribe((authors) => {
       this.authors = authors;
       if (authors) {
         this.filteredAuthors = authors.authors;
@@ -63,7 +63,7 @@ export class AuthorsComponent implements OnInit, OnDestroy {
     this._authorsService.getAllAuthors();
   }
   ngOnDestroy() {
-    this.authorsSub?.unsubscribe();
-    this.loadingSub?.unsubscribe();
+    this._authorsSub?.unsubscribe();
+    this._loadingSub?.unsubscribe();
   }
 }

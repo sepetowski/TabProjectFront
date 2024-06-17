@@ -13,6 +13,7 @@ import {
 } from '../../../interfaces/auth.interfaces';
 import { User } from '../../../models/user.model';
 import { Message } from '../../../interfaces/message.interface';
+import { SERVER } from '../../../constants/contsatnts';
 
 @Injectable({
   providedIn: 'root',
@@ -42,10 +43,7 @@ export class AuthService {
     this._isLoading.next(true);
 
     this._http
-      .post<UserRegisterResponseData>(
-        'https://localhost:7101/api/auth/register',
-        userData
-      )
+      .post<UserRegisterResponseData>(`${SERVER}/auth/register`, userData)
       .subscribe({
         next: this.handleRegistration.bind(this),
         error: this.handleError.bind(this),
@@ -55,10 +53,7 @@ export class AuthService {
   public signIn(userData: UserLoginData) {
     this._isLoading.next(true);
     this._http
-      .post<UserLoginResponseData>(
-        'https://localhost:7101/api/auth/login',
-        userData
-      )
+      .post<UserLoginResponseData>(`${SERVER}/auth/login`, userData)
       .subscribe({
         next: this.handleAuth.bind(this),
         error: this.handleError.bind(this),
@@ -185,10 +180,7 @@ export class AuthService {
     };
 
     this._http
-      .post<RefreshTokenRes>(
-        'https://localhost:7101/api/auth/refreshToken',
-        refreshTokenReq
-      )
+      .post<RefreshTokenRes>(`${SERVER}/auth/refreshToken`, refreshTokenReq)
       .subscribe({
         next: this.handleRefreshTokenRes.bind(this),
         error: this.logOut.bind(this),
