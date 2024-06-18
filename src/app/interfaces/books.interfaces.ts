@@ -3,7 +3,7 @@ import { Category } from './categories.interfaces';
 export interface BookWithCategories {
   id: string;
   title: string;
-  ImageUrl?: string;
+  imageUrl?: string;
   isAvaible: boolean;
   categories: Category[];
 }
@@ -15,7 +15,7 @@ export interface BookWithCategoriesAndAuthor extends BookWithCategories {
 }
 
 export interface AllBooks {
-  books: BookWithCategoriesAndAuthor;
+  books: BookWithCategoriesAndAuthor[];
   amount: number;
 }
 

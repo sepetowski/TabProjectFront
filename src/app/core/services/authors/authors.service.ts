@@ -46,7 +46,6 @@ export class AuthorsService {
     this._http.get<AuthorDetails>(`${SERVER}/authors/${authorId}`).subscribe({
       next: (author) => {
         this._isLoading.next(false);
-        console.log(author);
         this._authorDetrails.next(author);
       },
       error: this.handleError.bind(this),

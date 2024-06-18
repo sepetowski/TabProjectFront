@@ -6,6 +6,11 @@ export interface NavItem {
 
 export const ADMIN_NAV_ITEMS: NavItem[] = [
   {
+    name: 'Books',
+    href: '/',
+    icon: 'pi-home',
+  },
+  {
     name: 'Authors',
     href: '/authors',
     icon: 'pi-home',
@@ -28,6 +33,11 @@ export const ADMIN_NAV_ITEMS: NavItem[] = [
 ];
 
 export const USER_NAV_ITEMS: NavItem[] = [
+  {
+    name: 'Books',
+    href: '/',
+    icon: 'pi-home',
+  },
   {
     name: 'Authors',
     href: '/authors',

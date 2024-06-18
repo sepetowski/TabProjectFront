@@ -24,7 +24,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   styleUrl: './authors.component.css',
 })
 export class AuthorsComponent implements OnInit, OnDestroy {
-  isLoading = false;
+  isLoading = true;
   authors: AuthorsList | null = null;
   filteredAuthors: Author[] | null = null;
 

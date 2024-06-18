@@ -1,0 +1,38 @@
+<div class="min-h-52 lg:min-h-72 bg-card rounded-md flex flex-col justify-between p-6">
+    <div>
+        <h3 class="text-lg md:text-xl font-bold">{{book.title}}</h3>
+        <h4 class=" md:text-lg font-semibold text text-neutral-400">{{book.authorName}} {{book.authorSurname}}</h4>
+    </div>
+    <div class="mt-2">
+        <p [ngClass]="{ 'text-green-400': book.isAvaible, 'text-red-400': !book.isAvaible }"> {{book.isAvaible? 'Book is
+            available':'Book is not
+            available'}}</p>
+    </div>
+
+    <div class="w-full h-96 my-4 flex items-center justify-center">
+        <img class="w-full h-full rounded-md" *ngIf="book.imageUrl; else defaultImage" [src]="book.imageUrl"
+            alt="Book image">
+        <ng-template #defaultImage>
+            <img class="w-full h-full rounded-md object-cover"
+                src="https://www.creativefabrica.com/wp-content/uploads/2021/04/06/Library-book-icon-Graphics-10471907-1.jpg"
+                alt="Default book image">
+        </ng-template>
+    </div>
+
+
+    <div class="flex gap-2 my-2">
+        @for (category of book.categories; track category.id) {
+        <p-tag severity="info" [value]="category.name" />
+
+        }
+    </div>
+
+    <div class="flex gap-2 self-end">
+        <button pButton pRipple label="Details" (click)="goToDetailsPage()">
+        </button>
+        @if (isAdmin) {
+        <button pButton pRipple severity="secondary" label="Edit" (click)="goToEditPage()">
+        </button>
+        }
+    </div>
+</div>

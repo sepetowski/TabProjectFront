@@ -151,7 +151,6 @@ export class NewBookComponent implements OnInit, OnDestroy {
 
     this.categoriesSub = this.categoriesService.categories.subscribe(
       (categories) => {
-        console.log(categories);
         this.categories = categories;
       }
     );
