@@ -21,6 +21,13 @@ export const adminRoutes: Routes = [
       ),
   },
   {
+    path: 'edit-book/:id',
+    loadComponent: () =>
+      import('../pages/admin/edit-book/edit-book.component').then(
+        (mod) => mod.EditBookComponent
+      ),
+  },
+  {
     path: 'new-category',
     loadComponent: () =>
       import('../pages/admin/new-category/new-category.component').then(

@@ -1,5 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { AddNewBook } from '../../../interfaces/books.interfaces';
+import {
+  AddNewBook,
+  AllBooks,
+  BookDetails,
+  EditBook,
+} from '../../../interfaces/books.interfaces';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { SERVER } from '../../../constants/contsatnts';
@@ -10,6 +15,8 @@ import { Message } from '../../../interfaces/message.interface';
   providedIn: 'root',
 })
 export class BooksService {
+  private _bookDetails = new BehaviorSubject<BookDetails | null>(null);
+  private _allBooks = new BehaviorSubject<AllBooks | null>(null);
   private _isLoading = new BehaviorSubject<boolean>(false);
   private _message = new BehaviorSubject<null | Message>(null);
   private _http = inject(HttpClient);
@@ -22,8 +29,39 @@ export class BooksService {
     return this._message.asObservable();
   }
 
+  public get allBooks() {
+    return this._allBooks.asObservable();
+  }
+  public get bookDetails() {
+    return this._bookDetails.asObservable();
+  }
+
   public resetError() {
     this._message.next(null);
+  }
+
+  public getAllBooks() {
+    this._isLoading.next(true);
+
+    this._http.get<AllBooks>(`${SERVER}/books`).subscribe({
+      next: (book) => {
+        this._isLoading.next(false);
+        this._allBooks.next(book);
+      },
+      error: this.handleError.bind(this),
+    });
+  }
+
+  public getBookDetails(id: string) {
+    this._isLoading.next(true);
+
+    this._http.get<BookDetails>(`${SERVER}/books/${id}`).subscribe({
+      next: (book) => {
+        this._isLoading.next(false);
+        this._bookDetails.next(book);
+      },
+      error: this.handleError.bind(this),
+    });
   }
 
   public createNewBook(book: AddNewBook) {
@@ -47,6 +85,34 @@ export class BooksService {
 
     this._http
       .post<{ id: string }>(`${SERVER}/books/addBook`, formData)
+      .subscribe({
+        next: this.handleNewBookCreation.bind(this),
+        error: this.handleError.bind(this),
+      });
+  }
+
+  public editBook(book: EditBook) {
+    this._isLoading.next(true);
+
+    const formData = new FormData();
+    formData.append('id', book.id);
+    formData.append('title', book.title);
+    formData.append('BookDescripton', book.bookDescription);
+    formData.append('deleteFile', book.deleteFile.toString());
+    formData.append('NumberOfPage', book.numberOfPages.toString());
+    formData.append('publicationDate', book.publicationDate.toISOString());
+    formData.append('availableCopies', book.availableCopies.toString());
+
+    book.categoriesIds.forEach((categoryId) => {
+      formData.append('CategoriesIds', categoryId);
+    });
+
+    if (book.imageFile) {
+      formData.append('imageFile', book.imageFile);
+    }
+
+    this._http
+      .post<{ id: string }>(`${SERVER}/books/updateBook`, formData)
       .subscribe({
         next: this.handleNewBookCreation.bind(this),
         error: this.handleError.bind(this),
