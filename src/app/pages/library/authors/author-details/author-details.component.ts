@@ -5,11 +5,12 @@ import { AuthorDetails } from '../../../../interfaces/authors.interfaces';
 import { Subscription } from 'rxjs';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DatePipe } from '@angular/common';
+import { BookComponent } from '../../../../components/book/book.component';
 
 @Component({
   selector: 'app-author-details',
   standalone: true,
-  imports: [ProgressSpinnerModule, DatePipe],
+  imports: [ProgressSpinnerModule, DatePipe, BookComponent],
   templateUrl: './author-details.component.html',
   styleUrl: './author-details.component.css',
 })
@@ -35,7 +36,10 @@ export class AuthorDetailsComponent implements OnInit, OnDestroy {
     }
 
     this._authorDetailsSub = this._authorsService.authorDetails.subscribe(
-      (author) => (this.author = author)
+      (author) => {
+        this.author = author;
+        console.log(author);
+      }
     );
 
     this._loadingSub = this._authorsService.isLoading.subscribe(

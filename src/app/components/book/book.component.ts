@@ -1,5 +1,8 @@
 import { Component, Input, inject } from '@angular/core';
-import { BookWithCategoriesAndAuthor } from '../../interfaces/books.interfaces';
+import {
+  BookWithCategories,
+  BookWithCategoriesAndAuthor,
+} from '../../interfaces/books.interfaces';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -17,13 +20,21 @@ import { TagModule } from 'primeng/tag';
   styleUrl: './book.component.css',
 })
 export class BookComponent {
-  @Input() book!: BookWithCategoriesAndAuthor;
+  @Input() book!: BookWithCategories;
+  @Input() authorName: string | null = null;
+  @Input() authorSurname: string | null = null;
+  @Input() authorId: string | null = null;
 
   private authService = inject(AuthService);
   private router = inject(Router);
 
   private userSub: Subscription | null = null;
   isAdmin = false;
+
+  goToAuthorPage() {
+    if (this.authorId)
+      this.router.navigate([`/authors/author/${this.authorId}`]);
+  }
 
   goToDetailsPage() {
     // this.router.navigate([`/authors/author/${this.book.id}`]);
