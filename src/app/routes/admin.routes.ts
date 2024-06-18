@@ -14,6 +14,13 @@ export const adminRoutes: Routes = [
       ),
   },
   {
+    path: 'edit-author/:id',
+    loadComponent: () =>
+      import('../pages/admin/edit-author/edit-author.component').then(
+        (mod) => mod.EditAuthorComponent
+      ),
+  },
+  {
     path: 'new-book',
     loadComponent: () =>
       import('../pages/admin/new-book/new-book.component').then(

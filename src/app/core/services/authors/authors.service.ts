@@ -82,6 +82,20 @@ export class AuthorsService {
     });
   }
 
+  public updateAuthor(id: string, author: NewAuthor) {
+    this._http.put<Author>(`${SERVER}/authors/${id}`, author).subscribe({
+      next: () => {
+        this._message.next({
+          type: 'success',
+          message: `Author was edited`,
+        });
+        this._isLoading.next(false);
+        this._message.next(null);
+      },
+      error: this.handleError.bind(this),
+    });
+  }
+
   public getAllAuthors() {
     this._isLoading.next(true);
 

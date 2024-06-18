@@ -135,7 +135,14 @@ export class BooksService {
     this._http
       .post<{ id: string }>(`${SERVER}/books/updateBook`, formData)
       .subscribe({
-        next: this.handleNewBookCreation.bind(this),
+        next: () => {
+          this._message.next({
+            type: 'success',
+            message: `Book was edited`,
+          });
+          this._isLoading.next(false);
+          this._message.next(null);
+        },
         error: this.handleError.bind(this),
       });
   }
