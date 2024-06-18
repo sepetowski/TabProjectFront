@@ -52,6 +52,27 @@ export class AuthorsService {
     });
   }
 
+  public deleteAuthor(id: string) {
+    this._isLoading.next(true);
+
+    this._http.delete(`${SERVER}/authors/${id}`).subscribe({
+      next: (book) => {
+        this._isLoading.next(false);
+
+        const authors = this._authors.getValue();
+        const amount = authors?.amount;
+
+        const filterAuthors = {
+          authors: authors?.authors.filter((author) => author.id !== id) ?? [],
+          amount: amount ? amount - 1 : 0,
+        };
+
+        this._authors.next(filterAuthors);
+      },
+      error: this.handleError.bind(this),
+    });
+  }
+
   public createNewAuthor(author: NewAuthor) {
     this._isLoading.next(true);
 

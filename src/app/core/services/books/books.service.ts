@@ -40,6 +40,27 @@ export class BooksService {
     this._message.next(null);
   }
 
+  public deleteBook(id: string) {
+    this._isLoading.next(true);
+
+    this._http.delete<AllBooks>(`${SERVER}/books/${id}`).subscribe({
+      next: (book) => {
+        this._isLoading.next(false);
+
+        const books = this._allBooks.getValue();
+        const amount = books?.amount;
+
+        const filterBooks = {
+          books: books?.books.filter((book) => book.id !== id) ?? [],
+          amount: amount ? amount - 1 : 0,
+        };
+
+        this._allBooks.next(filterBooks);
+      },
+      error: this.handleError.bind(this),
+    });
+  }
+
   public getAllBooks() {
     this._isLoading.next(true);
 

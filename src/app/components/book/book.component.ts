@@ -11,6 +11,7 @@ import { CommonModule, NgClass } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
+import { BooksService } from '../../core/services/books/books.service';
 
 @Component({
   selector: 'app-book',
@@ -26,6 +27,7 @@ export class BookComponent {
   @Input() authorId: string | null = null;
 
   private authService = inject(AuthService);
+  private bookService = inject(BooksService);
   private router = inject(Router);
 
   private userSub: Subscription | null = null;
@@ -34,6 +36,9 @@ export class BookComponent {
   goToAuthorPage() {
     if (this.authorId)
       this.router.navigate([`/authors/author/${this.authorId}`]);
+  }
+  delete() {
+    if (this.isAdmin) this.bookService.deleteBook(this.book.id);
   }
 
   goToDetailsPage() {
