@@ -1,0 +1,12 @@
+<div class="min-h-52  bg-card rounded-md flex flex-col justify-between p-6">
+
+    <h2 class="text-lg md:text-xl font-bold">{{category.name}}</h2>
+    <div class="flex gap-2 self-end">
+        @if (isAdmin) {
+        <button pButton pRipple severity="secondary" label="Edit" (click)="goToEditPage()">
+        </button>
+        <button pButton pRipple severity="danger" label="Delete" (click)="delete()">
+        </button>
+        }
+    </div>
+</div>

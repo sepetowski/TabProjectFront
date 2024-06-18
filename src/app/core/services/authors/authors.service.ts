@@ -56,7 +56,7 @@ export class AuthorsService {
     this._isLoading.next(true);
 
     this._http.delete(`${SERVER}/authors/${id}`).subscribe({
-      next: (book) => {
+      next: () => {
         this._isLoading.next(false);
 
         const authors = this._authors.getValue();

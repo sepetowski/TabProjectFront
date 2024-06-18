@@ -41,4 +41,18 @@ export const adminRoutes: Routes = [
         (mod) => mod.NewCategoryComponent
       ),
   },
+  {
+    path: 'categories',
+    loadComponent: () =>
+      import('../pages/admin/category-list/category-list.component').then(
+        (mod) => mod.CategoryListComponent
+      ),
+  },
+  {
+    path: 'edit-category/:id',
+    loadComponent: () =>
+      import('../pages/admin/edit-category/edit-category.component').then(
+        (mod) => mod.EditCategoryComponent
+      ),
+  },
 ];

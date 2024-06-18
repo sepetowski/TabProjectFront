@@ -80,7 +80,7 @@ export class BooksComponent implements OnInit, OnDestroy {
         this.filterBooks();
       }
     });
-    this.booksService.isLoading.subscribe(
+    this.loadingSub = this.booksService.isLoading.subscribe(
       (laoding) => (this.isLoading = laoding)
     );
 

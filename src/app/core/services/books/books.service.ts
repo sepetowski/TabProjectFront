@@ -43,8 +43,8 @@ export class BooksService {
   public deleteBook(id: string) {
     this._isLoading.next(true);
 
-    this._http.delete<AllBooks>(`${SERVER}/books/${id}`).subscribe({
-      next: (book) => {
+    this._http.delete(`${SERVER}/books/${id}`).subscribe({
+      next: () => {
         this._isLoading.next(false);
 
         const books = this._allBooks.getValue();

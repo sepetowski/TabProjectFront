@@ -16,6 +16,11 @@ export const ADMIN_NAV_ITEMS: NavItem[] = [
     icon: 'pi-home',
   },
   {
+    name: 'Categories',
+    href: '/admin/categories',
+    icon: 'pi-home',
+  },
+  {
     name: 'Add Author',
     href: '/admin/new-author',
     icon: 'pi-home',

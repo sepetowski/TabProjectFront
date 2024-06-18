@@ -34,6 +34,20 @@ export class CategoriesService {
     this._message.next(null);
   }
 
+  public updateCategory(id: string, category: { name: string }) {
+    this._http.put(`${SERVER}/categories/${id}`, category).subscribe({
+      next: () => {
+        this._message.next({
+          type: 'success',
+          message: `Category was edited`,
+        });
+        this._isLoading.next(false);
+        this._message.next(null);
+      },
+      error: this.handleError.bind(this),
+    });
+  }
+
   public getAllCategories() {
     this._isLoading.next(true);
 
@@ -41,6 +55,29 @@ export class CategoriesService {
       next: (categories) => {
         this._isLoading.next(false);
         this._categories.next(categories);
+      },
+      error: this.handleError.bind(this),
+    });
+  }
+
+  public deleteCategory(id: string) {
+    this._isLoading.next(true);
+
+    this._http.delete(`${SERVER}/categories/${id}`).subscribe({
+      next: () => {
+        this._isLoading.next(false);
+
+        const categories = this._categories.getValue();
+        const amount = categories?.amount;
+
+        const filterCategories = {
+          categories:
+            categories?.categories.filter((category) => category.id !== id) ??
+            [],
+          amount: amount ? amount - 1 : 0,
+        };
+
+        this._categories.next(filterCategories);
       },
       error: this.handleError.bind(this),
     });

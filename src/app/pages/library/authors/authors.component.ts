@@ -56,7 +56,7 @@ export class AuthorsComponent implements OnInit, OnDestroy {
         this.filterAuthors();
       }
     });
-    this._authorsService.isLoading.subscribe(
+    this._loadingSub = this._authorsService.isLoading.subscribe(
       (laoding) => (this.isLoading = laoding)
     );
 
