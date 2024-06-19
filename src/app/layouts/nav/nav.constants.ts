@@ -21,6 +21,16 @@ export const ADMIN_NAV_ITEMS: NavItem[] = [
     icon: 'pi-home',
   },
   {
+    name: 'Reservation History',
+    href: '/admin/reservation-history',
+    icon: 'pi-home',
+  },
+  {
+    name: 'Loans History',
+    href: '/admin/loans-history',
+    icon: 'pi-home',
+  },
+  {
     name: 'Add Author',
     href: '/admin/new-author',
     icon: 'pi-home',

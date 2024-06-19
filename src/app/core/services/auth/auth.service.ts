@@ -10,6 +10,7 @@ import {
   RefreshTokenReq,
   RefreshTokenRes,
   UserRole,
+  UsersInfo,
 } from '../../../interfaces/auth.interfaces';
 import { User } from '../../../models/user.model';
 import { Message } from '../../../interfaces/message.interface';
@@ -20,6 +21,7 @@ import { SERVER } from '../../../constants/contsatnts';
 })
 export class AuthService {
   private _user = new BehaviorSubject<User | null>(null);
+  private _users = new BehaviorSubject<UsersInfo | null>(null);
   private _isLoading = new BehaviorSubject<boolean>(false);
   private _message = new BehaviorSubject<null | Message>(null);
 
@@ -37,6 +39,21 @@ export class AuthService {
   }
   public get user() {
     return this._user.asObservable();
+  }
+  public get users() {
+    return this._users.asObservable();
+  }
+
+  public getAllUsers() {
+    this._isLoading.next(true);
+
+    this._http.get<UsersInfo>(`${SERVER}/auth/getUsers`).subscribe({
+      next: (users) => {
+        this._isLoading.next(false);
+        this._users.next(users);
+      },
+      error: this.handleError.bind(this),
+    });
   }
 
   public signUp(userData: UserRegisterData) {

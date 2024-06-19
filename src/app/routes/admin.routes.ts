@@ -4,7 +4,7 @@ export const adminRoutes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'new-author',
+    redirectTo: 'reservation-history',
   },
   {
     path: 'new-author',
@@ -53,6 +53,20 @@ export const adminRoutes: Routes = [
     loadComponent: () =>
       import('../pages/admin/edit-category/edit-category.component').then(
         (mod) => mod.EditCategoryComponent
+      ),
+  },
+  {
+    path: 'reservation-history',
+    loadComponent: () =>
+      import(
+        '../pages/admin/reservations-hisotry/reservations-hisotry.component'
+      ).then((mod) => mod.ReservationsHisotryComponent),
+  },
+  {
+    path: 'loans-history',
+    loadComponent: () =>
+      import('../pages/admin/loans-hisotry/loans-hisotry.component').then(
+        (mod) => mod.LoansHisotryComponent
       ),
   },
 ];

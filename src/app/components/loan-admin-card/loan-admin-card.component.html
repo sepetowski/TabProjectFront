@@ -1,0 +1,39 @@
+<div [ngClass]="{'opacity-55':loan.returnDate}"
+    class="min-h-52 lg:min-h-72 bg-card rounded-md flex flex-col justify-between p-6">
+    <div>
+        <div class="mb-4">
+            <h2 class="text-lg md:text-xl font-bold text-teal-400 ">User: {{loan.username}}</h2>
+            <p class="mb-2 text-xs">Loan id : {{loan.id}}</p>
+        </div>
+        <h3 class="text-lg md:text-xl font-bold">{{loan.bookTitle}}</h3>
+        <h4 class=" md:text-lg font-semibold text text-neutral-400">{{loan.bookAuthorName}}
+            {{loan.bookAuthorSurname}}</h4>
+
+    </div>
+
+    <p>Book loan was made on: {{loan.loanDate | date}}</p>
+    @if(loan.returnDate){
+    <p>Book was return on: {{loan.returnDate |date}}</p>
+    }
+
+    <div class="w-full h-96 my-4 flex items-center justify-center">
+        <img class="w-full h-full rounded-md" *ngIf="loan.imageUrl; else defaultImage" [src]="loan.imageUrl"
+            alt="Book image">
+        <ng-template #defaultImage>
+            <img class="w-full h-full rounded-md object-cover"
+                src="https://www.creativefabrica.com/wp-content/uploads/2021/04/06/Library-book-icon-Graphics-10471907-1.jpg"
+                alt="Default book image">
+        </ng-template>
+    </div>
+
+
+    <div class="flex gap-2 self-end">
+        <button pButton pRipple label="Book Details" (click)="goToBookDetails()">
+        </button>
+        @if(!loan.returnDate){
+        <button pButton pRipple severity="danger" label="Return book" (click)="returnLoan()">
+        </button>
+        }
+
+    </div>
+</div>

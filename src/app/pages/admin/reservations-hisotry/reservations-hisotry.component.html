@@ -3,34 +3,37 @@
     <div class="w-full flex justify-center items-center mt-52">
         <p-progressSpinner ariaLabel="loading" />
     </div>
-    }@else if(!isLoading && books && books.amount!==0) {
+    }@else if(!isLoading && reservations && reservations.amount!==0) {
     <div class="flex gap-2 flex-wrap">
         <div>
             <p-iconField iconPosition="left">
                 <p-inputIcon styleClass="pi pi-search" />
                 <input type="text" pInputText placeholder="Search" class="w-full md:w-[30rem]" [(ngModel)]="serachValue"
-                    (ngModelChange)="filterBooks()" />
+                    (ngModelChange)="filter()" />
             </p-iconField>
             <p class="text-sm text-neutral-400 mt-1">
                 Serach by book title
             </p>
         </div>
         <div>
-            @if (categories) {
-            <p-multiSelect [options]="categories" optionLabel="name" placeholder="Select categories"
-                [style]="{'width':'300px'}" [(ngModel)]="selectedCategories" (onChange)="filterBooks()" />
+            @if (users) {
+            <p-multiSelect [options]="users" optionLabel="username" placeholder="Select users"
+                [style]="{'width':'300px'}" [(ngModel)]="selectedUsers" (onChange)="filter()" />
             }
+        </div>
+        <div>
+            <p-selectButton (onChange)="filter()" [options]="stateOptions" [(ngModel)]="value" optionLabel="label"
+                optionValue="value" />
         </div>
     </div>
 
     <div class="my-6  grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @for (book of filteredBooks; track book.id) {
-        <app-book [book]="book" [authorName]="book.authorName" [authorSurname]="book.authorSurname"
-            [authorId]="book.authorId"></app-book>
+        @for (reservation of filteredReservations; track reservation.id) {
+        <app-reservation-admin-card [reservation]="reservation" />
         }
     </div>
 
-    @if ( books.amount !==0 && filteredBooks.length===0 && serachValue!=="") {
+    @if ( reservations.amount !==0 && filteredReservations.length===0 && serachValue!=="" ) {
     <div class="w-full flex justify-center items-center mt-52">
         <p>Nothing found for <span class="font-bold">"{{serachValue}}"</span></p>
     </div>
@@ -38,7 +41,7 @@
     }
     @else {
     <div class="w-full flex justify-center items-center mt-52">
-        <p>No books found</p>
+        <p>No reservations found</p>
     </div>
     }
 </div>

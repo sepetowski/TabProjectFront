@@ -21,7 +21,7 @@
         }
     </div>
 
-    @if ( authors.amount !==0 && filteredAuthors?.length===0 ) {
+    @if ( authors.amount !==0 && filteredAuthors?.length===0 && serachValue!=="" ) {
     <div class="w-full flex justify-center items-center mt-52">
         <p>Nothing found for <span class="font-bold">"{{serachValue}}"</span></p>
     </div>

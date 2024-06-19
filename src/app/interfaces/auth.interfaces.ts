@@ -46,3 +46,17 @@ export enum UserRole {
   admin = 0,
   user = 1,
 }
+
+export interface UserInfo {
+  id: string;
+  email: string;
+  createdAt: Date;
+  username: string;
+  firstName?: string;
+  lastName?: string;
+}
+
+export interface UsersInfo {
+  users: UserInfo[];
+  amount: number;
+}
