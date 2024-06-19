@@ -48,6 +48,16 @@ export const USER_NAV_ITEMS: NavItem[] = [
     href: '/authors',
     icon: 'pi-home',
   },
+  {
+    name: 'My Loans',
+    href: '/my-loans',
+    icon: 'pi-home',
+  },
+  {
+    name: 'My Reservations',
+    href: '/my-reservations',
+    icon: 'pi-home',
+  },
 ];
 
 export const NOT_SIGN_NAV_ITEMS: NavItem[] = [

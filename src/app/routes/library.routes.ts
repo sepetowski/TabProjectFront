@@ -10,6 +10,27 @@ export const libraryRoutes: Routes = [
       ),
   },
   {
+    path: 'my-loans',
+    loadComponent: () =>
+      import('../pages/library/my-loans/my-loans.component').then(
+        (mod) => mod.MyLoansComponent
+      ),
+  },
+  {
+    path: 'my-reservations',
+    loadComponent: () =>
+      import('../pages/library/my-reservations/my-reservations.component').then(
+        (mod) => mod.MyReservationsComponent
+      ),
+  },
+  {
+    path: 'book/:id',
+    loadComponent: () =>
+      import('../pages/library/books/book-details/book-details.component').then(
+        (mod) => mod.BookDetailsComponent
+      ),
+  },
+  {
     path: 'authors',
     loadComponent: () =>
       import('../pages/library/authors/authors.component').then(

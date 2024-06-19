@@ -42,7 +42,7 @@ export class BookComponent {
   }
 
   goToDetailsPage() {
-    // this.router.navigate([`/authors/author/${this.book.id}`]);
+    this.router.navigate([`/book/${this.book.id}`]);
   }
 
   goToEditPage() {

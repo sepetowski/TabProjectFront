@@ -25,7 +25,7 @@ export interface BookDetails {
   bookDescripton: string;
   availableCopies: number;
   numberOfPage: number;
-  ImageUrl?: string | null;
+  imageUrl?: string | null;
   isAvaible: boolean;
   authorId: string;
   authorName: string;

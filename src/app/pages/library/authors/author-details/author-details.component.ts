@@ -38,7 +38,6 @@ export class AuthorDetailsComponent implements OnInit, OnDestroy {
     this._authorDetailsSub = this._authorsService.authorDetails.subscribe(
       (author) => {
         this.author = author;
-        console.log(author);
       }
     );
 

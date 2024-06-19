@@ -1,0 +1,20 @@
+<div class="mt-24 sm:mt-36">
+    @if (isLoading) {
+    <div class="w-full flex justify-center items-center mt-52">
+        <p-progressSpinner ariaLabel="loading" />
+    </div>
+    }@else if(!isLoading && loans&& loans.amount!==0) {
+
+    <div class="my-6  grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (loan of loans.loans; track loan.id) {
+        <app-loan [loan]="loan" />
+        }
+    </div>
+
+    }
+    @else {
+    <div class="w-full flex justify-center items-center mt-52">
+        <p>You dont have any loans yet</p>
+    </div>
+    }
+</div>

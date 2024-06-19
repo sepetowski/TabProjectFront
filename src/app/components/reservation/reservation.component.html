@@ -1,0 +1,35 @@
+<div [ngClass]="{'opacity-55':!reservation.isActive}"
+    class="min-h-52 lg:min-h-72 bg-card rounded-md flex flex-col justify-between p-6">
+    <div>
+        <p class="mb-2 text-xs">Reservationn id : {{reservation.id}}</p>
+        <h3 class="text-lg md:text-xl font-bold">{{reservation.bookTitle}}</h3>
+        <h4 class=" md:text-lg font-semibold text text-neutral-400">{{reservation.bookAuthorName}}
+            {{reservation.bookAuthorSurname}}</h4>
+        <h5 class="mt-4">Reservation status: <span
+                [ngClass]="{ 'text-green-400':reservation.isActive, 'text-red-400': !reservation.isActive }">{{reservation.isActive?
+                'Active':'Not-active'}}</span></h5>
+    </div>
+
+    <p>Reservation was made on: {{reservation.reservationDate | date}}</p>
+
+    <div class="w-full h-96 my-4 flex items-center justify-center">
+        <img class="w-full h-full rounded-md" *ngIf="reservation.imageUrl; else defaultImage"
+            [src]="reservation.imageUrl" alt="Book image">
+        <ng-template #defaultImage>
+            <img class="w-full h-full rounded-md object-cover"
+                src="https://www.creativefabrica.com/wp-content/uploads/2021/04/06/Library-book-icon-Graphics-10471907-1.jpg"
+                alt="Default book image">
+        </ng-template>
+    </div>
+
+
+    <div class="flex gap-2 self-end">
+        <button pButton pRipple label="Book Details" (click)="goToBookDetails()">
+        </button>
+        @if(reservation.isActive){
+        <button pButton pRipple severity="danger" label="Cancel" (click)="cancelReservation()">
+        </button>
+        }
+
+    </div>
+</div>
